@@ -1,0 +1,34 @@
+/**
+ * Created by git on 17/8/25.
+ * @flow
+ */
+
+'use strict';
+
+import LinearGradient from './Component/LinearGradient'
+import Tip from './Component/Tip'
+import Button from './Component/Button'
+import PicShow from './Component/PicShow'
+import PicShow2 from './Component/PicShow2'
+import PicShow3 from './Component/PicShow3'
+import Android from './Component/Android'
+import Video from './Component/Video'
+import Redux from './Component/Redux'
+import ChangeNavColor from './Component/ChangeNavColor'
+import FaceId from './Component/FaceID'
+import Share from './Component/Share'
+export const components = [
+    {title:'渐变色',component:'LinearGradient',route:LinearGradient},
+    {title:'弹窗',component:'Tip',route:Tip},
+    {title:'按钮',component:'Button',route:Button},
+    {title:'图片展示(支持放大)',component:'PicShow',route:PicShow},
+    {title:'图片展示(瀑布流)',component:'PicShow2',route:PicShow2},
+    {title:'图片展示(带缓存)',component:'PicShow3',route:PicShow3},
+    {title:'从Android原生获取值',component:'Android',route:Android},
+    {title:'视频播放(IOS)',component:'Video',route:Video},
+    {title:'react-redux',component:'Redux',route:Redux},
+    {title:'修改导航颜色',component:'ChangeNavColor',route:ChangeNavColor},
+    {title:'人脸识别',component:'FaceId',route:FaceId},
+    {title:'分享',component:'Share',route:Share}
+]
+
