@@ -7,7 +7,6 @@
 
 import React, {PropTypes} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, SectionList} from 'react-native';
-import PangingList from './list-view'
 class Page6 extends React.Component
 {
     constructor(props, context)

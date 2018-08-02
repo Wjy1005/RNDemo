@@ -11,7 +11,7 @@ import {
     Dimensions
 } from 'react-native';
 
-//import { register, insertText, CustomTextInput,  doDelete, backSpace, clearAll, clearFocus} from 'react-native-custom-keyboard';
+// import { register, insertText, CustomTextInput,  doDelete, backSpace, clearAll, clearFocus} from 'react-native-custom-keyboard';
 
 //数字键盘
 import NumberKeyBoard from './NumberKeyBoard';

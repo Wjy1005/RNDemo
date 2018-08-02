@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, PureComponent } from 'react';
+import React, { Component,  PureComponent } from 'react';
+import PropTypes from 'prop-types'
 import {
     View, Text, Image, TouchableHighlight, InteractionManager
 } from 'react-native';

@@ -1,27 +1,33 @@
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <AVFoundation/AVFoundation.h>  // import
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
-#if DEBUG
-     jsCodeLocation = [NSURL URLWithString:@"http://10.100.82.71:8081/index.ios.bundle?platform=ios&dev=true"];
+#ifdef DEBUG
+  //开发包
+       jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.84:8081/index.bundle?platform=ios&dev=true"];
+//  jsCodeLocation = [NSURL URLWithString:@"http://192.168.2.7:8081/index.bundle?platform=ios&dev=true"];
+//    jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.126:8081/index.bundle?platform=ios&dev=true"];
+  
+  //  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  //离线包
+  jsCodeLocation = [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:@"index.jsbundle" ofType:nil]];
 #endif
+
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"RNdemo"
                                                initialProperties:nil
@@ -32,8 +38,6 @@
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
-   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];  // allow
-  
   [self.window makeKeyAndVisible];
   return YES;
 }

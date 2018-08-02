@@ -8,7 +8,7 @@
 import React, {PropTypes} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import {StackNavigator,TabNavigator,TabBarBottom, DrawerNavigator, addNavigationHelpers}from 'react-navigation'
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
 import Page1 from './Page1'
 import Page2 from './Page2'
@@ -98,7 +98,7 @@ const Navigator = StackNavigator(
             swipeEnabled:false,
             //是否在更改标签时显示动画
             animationEnabled:false,
-            headerStyle:{backgroundColor:'red'},
+            headerStyle:{backgroundColor:'#D24A4A'},
             //后退键
             headerLeft:(
                 <TouchableOpacity onPress={()=>{navigation.goBack()}} style={{marginLeft:10}}>

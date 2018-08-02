@@ -7,7 +7,8 @@
 
 import React, {PropTypes} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
-import RootModal from './RootModal'
+import Modal from '../../Common/git-root-modal'
+import Dialog from '../../Common/git-root-modal/TitleDialog'
 class index extends React.Component
 {
     constructor(props, context)
@@ -28,9 +29,10 @@ class index extends React.Component
         );
     }
     _onPress = ()=>{
-        let json = {  defaultTitle:'123231312312'  }
 
-        RootModal.alert(json)
+        Modal.alert({
+            component:<Dialog/>
+        })
     }
 }
 

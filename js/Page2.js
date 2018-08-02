@@ -68,7 +68,8 @@ class Page2 extends React.Component
         console.log(event.nativeEvent.contentOffset.y)
     }
     _onFetch =async(page)=>{
-        console.log(page)
+        console.log(page);
+        console.log(this.flatList._getItemCount(this.dataSource));
         try {
             if(page == 1){
                 this.dataSource = []

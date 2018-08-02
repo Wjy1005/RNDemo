@@ -15,8 +15,8 @@ import Android from './Component/Android'
 import Video from './Component/Video'
 import Redux from './Component/Redux'
 import ChangeNavColor from './Component/ChangeNavColor'
-import FaceId from './Component/FaceID'
-import Share from './Component/Share'
+import Switch from './Component/Switch'
+import ViewPager from './Component/ViewPager'
 export const components = [
     {title:'渐变色',component:'LinearGradient',route:LinearGradient},
     {title:'弹窗',component:'Tip',route:Tip},
@@ -28,7 +28,7 @@ export const components = [
     {title:'视频播放(IOS)',component:'Video',route:Video},
     {title:'react-redux',component:'Redux',route:Redux},
     {title:'修改导航颜色',component:'ChangeNavColor',route:ChangeNavColor},
-    {title:'人脸识别',component:'FaceId',route:FaceId},
-    {title:'分享',component:'Share',route:Share}
+    {title:'Switch',component:'Switch',route:Switch},
+    {title:'滑动页',component:'ViewPager',route:ViewPager}
 ]
 
