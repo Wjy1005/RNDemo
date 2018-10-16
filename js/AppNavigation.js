@@ -1,15 +1,15 @@
 /**
  * Created by git on 17/7/13.
  * @flow
+ * 抽屉导航
  */
 
 'use strict';
 
-import React, {PropTypes} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Image, BackHandler, ToastAndroid, Platform} from 'react-native';
+import React from 'react';
 import {StackNavigator,TabNavigator,TabBarBottom, DrawerNavigator}from 'react-navigation'
 import App from './App'
-import Page2 from './Page2'
+import Mine from './Mine'
 class AppNavigation extends React.Component
 {
     constructor(props, context)
@@ -20,14 +20,14 @@ class AppNavigation extends React.Component
     render()
     {
         let  DrawerNav = DrawerNavigator({
-            Page2: { screen: Page2 },
+            Mine: { screen: Mine },
             App: { screen: App },
         }, {
             drawerWidth: 200, // 抽屉宽
             drawerPosition: 'left', // 抽屉在左边还是右边
             // contentComponent: CustomDrawerContentComponent,  // 自定义抽屉组件
             contentOptions: {
-                initialRouteName: Page2, // 默认页面组件
+                initialRouteName: Mine, // 默认页面组件
                 activeTintColor: 'white',    // 选中文字颜色
                 activeBackgroundColor: '#ff8500', // 选中背景颜色
                 inactiveTintColor: '#666',  // 未选中文字颜色
@@ -41,15 +41,6 @@ class AppNavigation extends React.Component
         return (
             <DrawerNav ref="dra"/>
         );
-
     }
-
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});
-
 export default AppNavigation;

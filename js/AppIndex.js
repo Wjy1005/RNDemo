@@ -6,12 +6,13 @@
 'use strict';
 
 import React, {PropTypes} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import { Provider,connect } from 'react-redux';
 import configureStore from './redux/store/ConfigureStore'
 const store = configureStore();
-import App from './App'
-import AppNavigation from './AppNavigation'
+//tab导航
+import AppNavigation from './App'
+//抽屉导航
+// import AppNavigation from './AppNavigation'
 class AppIndex extends React.Component
 {
     constructor(props, context)
@@ -23,7 +24,7 @@ class AppIndex extends React.Component
     {
         return (
             <Provider store={store}>
-                <App/>
+                <AppNavigation/>
             </Provider>
         );
     }

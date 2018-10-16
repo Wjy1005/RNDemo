@@ -10,10 +10,12 @@ import { combineReducers } from 'redux';
 
 import MainReducer from './MainReducer';
 import NavReducer from './NavReducer';
+import NavOptionReducer from './NavOptionReducer';
 
 // 取决于这里你加入了多少 reducer
 const RootReducer = combineReducers({
     MainReducer,
-    NavReducer
+    NavReducer,
+    NavOptionReducer
 });
 export default RootReducer;

@@ -1,6 +1,7 @@
 /**
  * Created by git on 17/6/4.
  * @flow
+ * tab、导航设置
  */
 
 'use strict';
@@ -11,15 +12,10 @@ import {StackNavigator, TabNavigator, TabBarBottom, DrawerNavigator, addNavigati
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
 import {connect} from 'react-redux';
-import Page1 from './Page1'
-import Page2 from './Page2'
+import Home from './Home'
+import Mine from './Mine'
 import Components from './Component'
 import setStackNavigator from './Navigator'
-
-
-import {bindActionCreators} from 'redux';
-
-//import  Navigator from './AppReducer'
 
 class TabBarItem extends React.Component {
     render() {
@@ -36,22 +32,20 @@ class App extends React.Component {
         super(props, context);
     }
 
-
     render() {
-
 
         let items = [
             {
                 component: 'Home',
                 text: '首页',
-                screen: Page1,
+                screen: Home,
                 normalImage: require('./img/main.png'),
                 selectedImage: require('./img/main_select.png')
             },
             {
                 component: 'Mine',
                 text: '我的',
-                screen: Page2,
+                screen: Mine,
                 normalImage: require('./img/project.png'),
                 selectedImage: require('./img/project_select.png')
             },
@@ -62,8 +56,8 @@ class App extends React.Component {
                 normalImage: require('./img/project.png'),
                 selectedImage: require('./img/project_select.png')
             },
-        ]
-        let tabView = {}
+        ];
+        let tabView = {};
         items.map((item, index) => {
             tabView[item.component] = {
                 screen: item.screen,
@@ -79,8 +73,8 @@ class App extends React.Component {
                     )
                 }),
             }
-        })
-//底部tab
+        });
+        //底部tab
         let Tab = TabNavigator(
             tabView,
             {
@@ -100,8 +94,8 @@ class App extends React.Component {
                 }
             }
         );
-
-        let route = setStackNavigator.set()
+        //路由申明
+        let route = setStackNavigator.set();
         let routes = {
             Tab: {
                 screen: Tab,
@@ -114,7 +108,7 @@ class App extends React.Component {
                     //header:null,
                 })
             }, ...route
-        }
+        };
         const Navigator = StackNavigator(
             routes,
             {
@@ -128,8 +122,8 @@ class App extends React.Component {
                     swipeEnabled: false,
                     //是否在更改标签时显示动画
                     animationEnabled: false,
-                    headerStyle: {backgroundColor: this.props.MainReducer.backgroundColor},
-                    //headerStyle:{backgroundColor:'red'},
+                    headerStyle: {backgroundColor: this.props.NavOptionReducer.backgroundColor},
+                    // headerStyle:{backgroundColor:'red'},
                     //后退键
                     headerLeft: (
                         <TouchableOpacity onPress={() => {
@@ -173,9 +167,6 @@ class App extends React.Component {
     }
 
     onBackAndroid = () => {
-
-        console.log('onBackAndroid')
-
         //let navigator = this.refs.nav;
         ////let defaultStateAction = navigator.router.getStateForAction;
         //console.log(navigator)
@@ -191,7 +182,6 @@ class App extends React.Component {
         return true;
     };
 
-
     componentWillMount() {
         if (Platform.OS === 'android') {
             BackHandler.addEventListener('backPress', this.onBackAndroid)
@@ -203,8 +193,6 @@ class App extends React.Component {
             BackHandler.addEventListener('backPress', this.onBackAndroid)
         }
     }
-
-
 }
 
 const styles = StyleSheet.create({
@@ -213,11 +201,11 @@ const styles = StyleSheet.create({
     },
 });
 
-//export default App
+// export default App
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        MainReducer: state.MainReducer
+        NavOptionReducer: state.NavOptionReducer
     };
 }
 

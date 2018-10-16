@@ -67,11 +67,12 @@ class index extends React.Component
     }
     fetchMoreData = ()=>{
         if(!this.state.allLoad){
-            this.page = this.page + 1
+            this.page = this.page + 1;
             this._onFetch(this.page)
         }
     }
-    _keyExtractor = (item, index) => index;
+
+    _keyExtractor = (item, index) => 'cell' + index;
 
     _renderItem = ({item,index})=>{
         return(

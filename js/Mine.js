@@ -1,14 +1,9 @@
-/**
- * Created by git on 17/6/4.
- * @flow
- */
-
 'use strict';
 
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 import {View, StyleSheet, Text, TouchableOpacity, Image, DeviceInfo, FlatList, ActivityIndicator} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-class Page2 extends React.Component
+class Mine extends React.Component
 {
     constructor(props, context)
     {
@@ -34,7 +29,7 @@ class Page2 extends React.Component
                 <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('DrawerOpen');}}><Text>点击打开抽屉</Text></TouchableOpacity>
 
                 <FlatList style={{height:300,backgroundColor:'green'}}
-                          key='flatList'
+                          // key='flatList'
                           ref={(ref)=>this.flatList = ref}
                           data={this.dataSource}
                           keyExtractor={this._keyExtractor}
@@ -46,12 +41,12 @@ class Page2 extends React.Component
                           onEndReached={this.fetchMoreData}
                           onEndReachedThreshold={0.1}
                           ListFooterComponent={()=>{
-                            return( this.state.isLoadMore &&
-                                <ActivityIndicator/>
-                            )
+                              return( this.state.isLoadMore &&
+                                  <ActivityIndicator/>
+                              )
                           }}
-                          //numColumns={1}
-                          //columnWrapperStyle={{height:30,alignItems:'center'}}
+                    //numColumns={1}
+                    //columnWrapperStyle={{height:30,alignItems:'center'}}
                           extraData={this.state}
                           onViewableItemsChanged={this._onViewableItemsChanged}
                           onScroll={this._onScroll}
@@ -69,9 +64,9 @@ class Page2 extends React.Component
     }
     _onFetch =async(page)=>{
         console.log(page);
-        console.log(this.flatList._getItemCount(this.dataSource));
+        // console.log(this.flatList._getItemCount(this.dataSource));
         try {
-            if(page == 1){
+            if(page === 1){
                 this.dataSource = []
                 this.setState({isRefresh:true,allLoad:false})
             }else{
@@ -80,12 +75,12 @@ class Page2 extends React.Component
             for(let i =0 ; i< 10 ; i++){
                 this.dataSource = this.dataSource.concat({title: i})
             }
-            if(page == 1){
+            if(page === 1){
                 this.setState({isRefresh:false})
             }else{
                 this.setState({isLoadMore:false})
             }
-            if(page == 4){
+            if(page === 4){
                 this.setState({allLoad:true})
             }
         }catch (e){
@@ -105,9 +100,9 @@ class Page2 extends React.Component
         }
     }
     _keyExtractor = (item, index) => {
-        //console.log(item);
-        //console.log(index);
-        return index;
+        // console.log(item);
+        // console.log(index);
+        return 'cell' + index;
     };
 
     _renderItem = ({item,index})=>{
@@ -130,12 +125,12 @@ class Page2 extends React.Component
         )
     }
     _onPress = ()=>{
-        let items = this.flatList._getItem(this.dataSource,10)
-        console.log(items)
+        let items = this.flatList._getItem(this.dataSource,10);
+        console.log(items);
 
         this.dataSource = this.dataSource.map((item,index)=>{
-            item = {...item}
-            if(item.title == 1){
+            item = {...item};
+            if(item.title === 1){
                 item.title = -1
             }
             return item
@@ -150,4 +145,5 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Page2;
+
+export default Mine;

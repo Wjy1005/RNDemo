@@ -22,7 +22,7 @@ import CharKeyBoard from './CharKeyBoard'
 //提示
 import KeyTip from './KeyTip'
 
-import DisplayView from '../DisplayView'
+import DisplayView from './DisplayView'
 
 const Width = Dimensions.get('window').width
 export default class MyKeyboard extends React.Component {

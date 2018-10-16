@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 //import * as StyleSheet from '../utils/MyStyleSheet'
-import DisplayView from '../DisplayView'
+import DisplayView from './DisplayView'
 import KeysRow from './KeysRow'
 
 class UPKeyBoard extends PureComponent {

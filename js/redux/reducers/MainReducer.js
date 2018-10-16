@@ -5,8 +5,6 @@
 
 'use strict';
 
-import React, {PropTypes} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 // ActionTypes里面存放着App中可能发生的情况
 import * as types from './ActionTypes';
 // 初始化值
@@ -15,7 +13,6 @@ const initialState = {
     currentArray:{
         currentItem:''
     },
-    backgroundColor:'red'
 };
 
 
@@ -36,19 +33,14 @@ export default function MainReducer(state = initialState, action){
             return Object.assign({}, state, {
                 ...state,
                 currentState: action.status
-            })
+            });
         case types.TODO:
             return Object.assign({}, state, {
                 ...state,
                 currentArray:{
                     ...action.status
                 }
-            })
-        case types.backgroundColor:
-            return Object.assign({}, state, {
-                ...state,
-                backgroundColor:action.status
-            })
+            });
         default:
             return state;
     }

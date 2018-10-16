@@ -3,6 +3,7 @@ package com.rndemo;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.loveplusplus.update.AndroidAutoUpdatePackage;
 import com.remobile.toast.RCTToastPackage;
 import com.horcrux.svg.SvgPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AndroidAutoUpdatePackage(),
             new RCTToastPackage(),
             new SvgPackage(),
             new ImagePickerPackage(),

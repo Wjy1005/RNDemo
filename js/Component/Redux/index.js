@@ -8,7 +8,7 @@
 import React, {PropTypes} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image, TextInput} from 'react-native';
 import * as types from '../../redux/reducers/ActionTypes'
-import {showClick, dismissClick, toDoClick} from '../../redux/Action/mainAction'
+import {showClick, dismissClick, toDoClick, show} from '../../redux/Action/mainAction'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 

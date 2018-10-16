@@ -1,10 +1,10 @@
 rootProject.name = 'RNdemo'
+include ':react-native-android-auto-update'
+project(':react-native-android-auto-update').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-auto-update/android')
 include ':react-native-toast'
 project(':react-native-toast').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-toast/android')
 include ':react-native-svg'
 project(':react-native-svg').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-svg/android')
-include ':react-native-video'
-project(':react-native-video').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-video/android')
 include ':react-native-image-picker'
 project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
 include ':react-native-fetch-blob'

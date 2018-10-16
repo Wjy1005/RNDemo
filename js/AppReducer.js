@@ -5,20 +5,15 @@
 
 'use strict';
 
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import {StackNavigator,TabNavigator,TabBarBottom, DrawerNavigator, addNavigationHelpers}from 'react-navigation'
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
-
-import Page1 from './Page1'
-import Page2 from './Page2'
+import Home from './Home'
+import Mine from './Mine'
 import Components from './Component'
 import setStackNavigator from './Navigator'
-
-import {bindActionCreators} from 'redux';
-
 import { connect } from 'react-redux';
-
 
 class TabBarItem extends React.Component {
     render() {
@@ -28,13 +23,16 @@ class TabBarItem extends React.Component {
             />
         )
     }
-}
+};
+
 let items = [
-    {component:'Home',text:'首页',screen:Page1, normalImage:require('./img/main.png'),selectedImage:require('./img/main_select.png')},
-    {component:'Mine',text:'我的',screen:Page2, normalImage:require('./img/project.png'),selectedImage:require('./img/project_select.png')},
+    {component:'Home',text:'首页',screen:Home, normalImage:require('./img/main.png'),selectedImage:require('./img/main_select.png')},
+    {component:'Mine',text:'我的',screen:Mine, normalImage:require('./img/project.png'),selectedImage:require('./img/project_select.png')},
     {component:'Components',text:'组件',screen:Components, normalImage:require('./img/project.png'),selectedImage:require('./img/project_select.png')},
-]
-let tabView = {}
+];
+
+let tabView = {};
+
 items.map((item,index)=>{
     tabView[item.component] = {
         screen:item.screen,
@@ -50,7 +48,8 @@ items.map((item,index)=>{
             )
         }),
     }
-})
+});
+
 //底部tab
 let Tab = TabNavigator(
     tabView,
@@ -70,10 +69,10 @@ let Tab = TabNavigator(
             },
         }
     }
-
 );
 
-let route = setStackNavigator.set()
+let route = setStackNavigator.set();
+
 let routes = {Tab:{
     screen:Tab,
     //设置tab页面的导航
@@ -84,7 +83,8 @@ let routes = {Tab:{
         headerTintColor: '#000'
         //header:null,
     })
-},...route}
+},...route};
+
 const Navigator = StackNavigator(
     routes,
     {
@@ -133,7 +133,7 @@ const mapStateToProps = (state)=>{
     return {
         MainReducer:state.MainReducer
     };
-}
+};
 
 export default connect(
     mapStateToProps

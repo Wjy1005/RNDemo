@@ -5,8 +5,7 @@
 
 'use strict';
 
-import React, {PropTypes} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
+import React from 'react';
 
 class  AppSetting{
     static message = '1'

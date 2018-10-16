@@ -1,13 +1,9 @@
-/**
- * Created by git on 17/8/1.
- * @flow
- */
-
 'use strict';
 
-import React, {PropTypes} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, SectionList} from 'react-native';
-class Page6 extends React.Component
+import React from 'react';
+import PropTypes from 'prop-types'
+import {View, StyleSheet, Text, TouchableOpacity, SectionList} from 'react-native';
+class index extends React.Component
 {
     constructor(props, context)
     {
@@ -38,12 +34,12 @@ class Page6 extends React.Component
                     renderItem={this._renderItem}
                     renderSectionHeader={this._renderSectionHeader}
                     sections={[ // 不同section渲染相同类型的子组件
-                            {data: ['row1','row2','row3','row4','row5','row6','row7','row8','row9','row10'], key: 'sectionID_1'},
-                            {data: ['row1','row2','row3','row4','row5','row6','row7','row8','row9','row10'], key: 'sectionID_2'},
-                            {data: ['row1','row2','row3','row4','row5','row6','row7','row8','row9','row10'], key: 'sectionID_3'},
-                            {data: ['row1','row2','row3','row4','row5','row6','row7','row8','row9','row10'], key: 'sectionID_4'},
+                        {data: ['row1','row2','row3','row4','row5','row6','row7','row8','row9','row10'], key: 'sectionID_1'},
+                        {data: ['row1','row2','row3','row4','row5','row6','row7','row8','row9','row10'], key: 'sectionID_2'},
+                        {data: ['row1','row2','row3','row4','row5','row6','row7','row8','row9','row10'], key: 'sectionID_3'},
+                        {data: ['row1','row2','row3','row4','row5','row6','row7','row8','row9','row10'], key: 'sectionID_4'},
 
-                          ]}
+                    ]}
                     stickySectionHeadersEnabled={true}
                 />
 
@@ -83,7 +79,7 @@ class Page6 extends React.Component
             dataSource[key].push('row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10')
         }
         this.setState({dataSource})
-        if(this._page == 3){
+        if(this._page === 3){
             this.setState({allLoaded:true})
         }
         option = {...option,allLoaded:true}
@@ -122,10 +118,10 @@ class Page6 extends React.Component
     _onHeaderPress = (sectionID)=>{
         console.log(sectionID)
         let {lastKey} = this.state
-        if(lastKey == sectionID){
+        if(lastKey === sectionID){
 
         }else{
-            if(lastKey == ''){
+            if(lastKey === ''){
             }else{
                 let dataSource = this.state.dataSource
                 dataSource[lastKey] = []
@@ -147,4 +143,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Page6;
+export default index;
