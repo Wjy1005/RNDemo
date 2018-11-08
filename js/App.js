@@ -133,7 +133,7 @@ class App extends React.Component {
                         </TouchableOpacity>
                     ),
                     //文字样式
-                    //Android中headerTitleStyle默认为alignSelf:'flex-start'
+                    // Android中headerTitleStyle默认为alignSelf:'flex-start'
                     headerTitleStyle: {alignSelf: 'center'},
                     headerTintColor: '#fff',
                     //Android需要加上一個headerRight讓title居中
