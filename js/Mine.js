@@ -3,34 +3,39 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import {View, StyleSheet, Text, TouchableOpacity, Image, DeviceInfo, FlatList, ActivityIndicator} from 'react-native';
-class Mine extends React.Component
-{
-    constructor(props, context)
-    {
+
+class Mine extends React.Component {
+    constructor(props, context) {
         super(props, context);
-        console.log(DeviceInfo.Dimensions)
-        this.page = 1
+        console.log(DeviceInfo.Dimensions);
+        this.page = 1;
         this.dataSource = []
-        this.state={
-            isLoadMore:false, //是否为下拉刷新
-            isRefresh:false,
-            allLoad:false
+        this.state = {
+            isLoadMore: false, //是否为下拉刷新
+            isRefresh: false,
+            allLoad: false
         }
     }
-    static navigationOptions = ({ navigation,screenProps }) => ({
+
+    static navigationOptions = ({navigation, screenProps}) => ({
         headerTintColor: 'yellow',
-    })
-    render()
-    {
+    });
+
+    render() {
         return (
             <View style={styles.container}>
-                <Text style={{ display:'none'}}>123456</Text>
-                <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('Page6')}}><Text>点击跳转到page6</Text></TouchableOpacity>
-                <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('DrawerOpen');}}><Text>点击打开抽屉</Text></TouchableOpacity>
 
-                <FlatList style={{height:300,backgroundColor:'green'}}
-                          // key='flatList'
-                          ref={(ref)=>this.flatList = ref}
+                <Text style={{display: 'none'}}>123456</Text>
+
+                <TouchableOpacity onPress={() => {
+                    this.props.navigation.navigate('DrawerOpen')
+                }}>
+                    <Text>点击打开抽屉</Text>
+                </TouchableOpacity>
+
+                <FlatList style={{height: 300, backgroundColor: 'green'}}
+                    // key='flatList'
+                          ref={(ref) => this.flatList = ref}
                           data={this.dataSource}
                           keyExtractor={this._keyExtractor}
                           ItemSeparatorComponent={this._ItemSeparatorComponent}
@@ -40,8 +45,8 @@ class Mine extends React.Component
                           refreshing={false}
                           onEndReached={this.fetchMoreData}
                           onEndReachedThreshold={0.1}
-                          ListFooterComponent={()=>{
-                              return( this.state.isLoadMore &&
+                          ListFooterComponent={() => {
+                              return (this.state.isLoadMore &&
                                   <ActivityIndicator/>
                               )
                           }}
@@ -59,42 +64,43 @@ class Mine extends React.Component
     componentWillMount() {
         this._onFetch(this.page)
     }
-    _onScroll = (event)=>{
-        console.log(event.nativeEvent.contentOffset.y)
+
+    _onScroll = (event) => {
+        // console.log(event.nativeEvent.contentOffset.y)
     }
-    _onFetch =async(page)=>{
+    _onFetch = async (page) => {
         console.log(page);
         // console.log(this.flatList._getItemCount(this.dataSource));
         try {
-            if(page === 1){
-                this.dataSource = []
-                this.setState({isRefresh:true,allLoad:false})
-            }else{
-                this.setState({isLoadMore:true})
+            if (page === 1) {
+                this.dataSource = [];
+                this.setState({isRefresh: true, allLoad: false})
+            } else {
+                this.setState({isLoadMore: true})
             }
-            for(let i =0 ; i< 10 ; i++){
+            for (let i = 0; i < 10; i++) {
                 this.dataSource = this.dataSource.concat({title: i})
             }
-            if(page === 1){
-                this.setState({isRefresh:false})
-            }else{
-                this.setState({isLoadMore:false})
+            if (page === 1) {
+                this.setState({isRefresh: false})
+            } else {
+                this.setState({isLoadMore: false})
             }
-            if(page === 4){
-                this.setState({allLoad:true})
+            if (page === 4) {
+                this.setState({allLoad: true})
             }
-        }catch (e){
+        } catch (e) {
             console.log(e)
         }
 
     }
-    _onViewableItemsChanged = ({viewableItems,changed})=>{
+    _onViewableItemsChanged = ({viewableItems, changed}) => {
         //console.log('onViewableItemsChanged')
         //console.log(viewableItems)
         //console.log(changed)
     }
-    fetchMoreData = ()=>{
-        if(!this.state.allLoad){
+    fetchMoreData = () => {
+        if (!this.state.allLoad) {
             this.page = this.page + 1
             this._onFetch(this.page)
         }
@@ -105,32 +111,33 @@ class Mine extends React.Component
         return 'cell' + index;
     };
 
-    _renderItem = ({item,index})=>{
-        return(
-            <View key={index + 'row'} style={{flex:1,margin:'auto',marginHorizontal:10,backgroundColor:'yellow'}}>
+    _renderItem = ({item, index}) => {
+        return (
+            <View key={index + 'row'}
+                  style={{flex: 1, margin: 'auto', marginHorizontal: 10, backgroundColor: 'yellow'}}>
                 <Text>{item.title}</Text>
             </View>
         )
     }
-    _ItemSeparatorComponent = (sid,rid)=>{
+    _ItemSeparatorComponent = (sid, rid) => {
         return (
-            <View style={{height:StyleSheet.hairlineWidth,backgroundColor:'#ddd'}} key={sid}/>
+            <View style={{height: StyleSheet.hairlineWidth, backgroundColor: '#ddd'}} key={sid}/>
         )
     }
-    _ListHeaderComponent = ()=>{
+    _ListHeaderComponent = () => {
         return (
             <TouchableOpacity onPress={this._onPress}>
                 <Text>头部,点击修改值</Text>
             </TouchableOpacity>
         )
     }
-    _onPress = ()=>{
-        let items = this.flatList._getItem(this.dataSource,10);
+    _onPress = () => {
+        let items = this.flatList._getItem(this.dataSource, 10);
         console.log(items);
 
-        this.dataSource = this.dataSource.map((item,index)=>{
+        this.dataSource = this.dataSource.map((item, index) => {
             item = {...item};
-            if(item.title === 1){
+            if (item.title === 1) {
                 item.title = -1
             }
             return item
@@ -141,7 +148,8 @@ class Mine extends React.Component
 
 const styles = StyleSheet.create({
     container: {
-        //flex: 1,
+        // flex: 1,
+        paddingTop: 20
     }
 });
 

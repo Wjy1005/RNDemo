@@ -19,7 +19,6 @@ import ChangeNavColor from './Component/ChangeNavColor'
 import Switch from './Component/Switch'
 import ViewPager from './Component/ViewPager'
 import Flatlist from './Component/Flatlist'
-import ILive from './Component/ILive'
 import SectionList from './Component/SectionList'
 
 export const components = [
@@ -37,7 +36,6 @@ export const components = [
     {title:'Switch',component:'Switch',route:Switch},
     {title:'滑动页',component:'ViewPager',route:ViewPager},
     {title:'Flatlist',component:'Flatlist',route:Flatlist},
-    {title:'ILive',component:'ILive',route:ILive},
     {title:'SectionList',component:'SectionList',route:SectionList},
 ]
 

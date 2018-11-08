@@ -14,6 +14,7 @@ import NavPage2 from './Component/ReduxNav/Page2'
 import NavPage3 from './Component/ReduxNav/Page3'
 import {components} from './Config'
 import RNKeyboard from './keyBoards/RNKeyboard'
+import AddPage from './AddPage'
 
 class setStackNavigator {
 
@@ -35,32 +36,14 @@ class setStackNavigator {
 
     static set() {
         this.data = {
-            Page1: {
-                screen: Home,
-                //navigationOptions:null
-            },
-            Page2: {
-                screen: Mine,
-                //navigationOptions:null
-            },
-            NavPage1: {
-                screen: NavPage1,
-                //navigationOptions:null
-            },
-            NavPage2: {
-                screen: NavPage2,
-                navigationOptions: null
-            },
-            NavPage3: {
-                screen: NavPage3,
-                navigationOptions: null
-            },
-            ReduxPage: {
-                screen: ReduxPage,
-            },
-            RNKeyboard: {
-                screen: RNKeyboard,
-            }
+            Page1: {screen: Home},
+            Page2: {screen: Mine},
+            NavPage1: {screen: NavPage1},
+            NavPage2: {screen: NavPage2},
+            NavPage3: {screen: NavPage3},
+            ReduxPage: {screen: ReduxPage},
+            RNKeyboard: {screen: RNKeyboard},
+            AddPage: {screen: AddPage}
         }
 
         this.data = this.addData(this.data, components)

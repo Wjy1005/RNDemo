@@ -73,7 +73,7 @@ class index extends React.Component
         if(option.firstLoad){
             this._callback = callback
         }
-        let dataSource = this.state.dataSource
+        let dataSource = this.state.dataSource;
         console.log(this._page)
         if(key && !this.state.allLoaded){
             dataSource[key].push('row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10','row1','row2','row3','row4','row5','row6','row7','row8','row9','row10')

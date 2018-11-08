@@ -27,7 +27,7 @@ class AppNavigation extends React.Component
             drawerPosition: 'left', // 抽屉在左边还是右边
             // contentComponent: CustomDrawerContentComponent,  // 自定义抽屉组件
             contentOptions: {
-                initialRouteName: Mine, // 默认页面组件
+                initialRouteName: App, // 默认页面组件
                 activeTintColor: 'white',    // 选中文字颜色
                 activeBackgroundColor: '#ff8500', // 选中背景颜色
                 inactiveTintColor: '#666',  // 未选中文字颜色
