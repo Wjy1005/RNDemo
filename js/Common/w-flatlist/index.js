@@ -5,7 +5,7 @@
 
 'use strict';
 
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {
     View,
     StyleSheet,
@@ -16,6 +16,21 @@ import {
     ActivityIndicator,
     TouchableHighlight
 } from 'react-native';
+
+function MergeRecursive(obj1, obj2) {
+    for (let p in obj2) {
+        try {
+            if ( obj2[p].constructor==Object ) {
+                obj1[p] = MergeRecursive(obj1[p], obj2[p]);
+            } else {
+                obj1[p] = obj2[p];
+            }
+        } catch(e) {
+            obj1[p] = obj2[p];
+        }
+    }
+    return obj1;
+}
 
 class index extends React.Component {
 
@@ -52,79 +67,81 @@ class index extends React.Component {
         this.dataSource = [];
         this.state = {
             isRefreshing: false,
-            paginationStatus:'firstLoad'
+            paginationStatus: 'firstLoad'
         }
-
         this.defaultStyles = {
             separator: {
                 height: 1,
-                    backgroundColor: '#CCC'
+                backgroundColor: '#CCC'
             },
             actionsLabel: {
                 fontSize: 20,
+                color: '#ccc'
             },
             paginationView: {
                 height: 44,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#FFF',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#FFF',
             },
             defaultView: {
                 justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: 20,
+                alignItems: 'center',
+                padding: 20,
             },
             defaultViewTitle: {
                 fontSize: 16,
-                    fontWeight: 'bold',
-                    marginBottom: 15,
+                fontWeight: 'bold',
+                marginBottom: 15,
             },
         }
     }
 
     render() {
-        let {onEndReached, ...otherProps} = this.props;
+        let {...otherProps} = this.props;
         return (
-            <View style={styles.container}>
-                <FlatList style={{flex: 1}}
-                          key='flatList'
-                          ref={(ref) => this.flatList = ref}
-                          data={this.dataSource}
-                          keyExtractor={this._keyExtractor}
-                          ItemSeparatorComponent={this._ItemSeparatorComponent}
-                          onRefresh={() => this._onFetch(this.page = 1)}
-                          refreshing={this.state.isRefreshing}
-                          onEndReached={this.fetchMoreData}
-                          onEndReachedThreshold={0.1}
-                          ListFooterComponent={this._listFooterComponent}
-                          extraData={this.state}
-                          onViewableItemsChanged={this._onViewableItemsChanged}
-                    // onScroll={this._onScroll}
-                          {...otherProps}
-                />
-            </View>
+            <FlatList style = {{flex: 1}}
+                      key = 'flatList'
+                      ref = {ref => this.flatList = ref}
+                      data = {this.dataSource}
+                      keyExtractor = {this._keyExtractor}
+                      ItemSeparatorComponent = {this._ItemSeparatorComponent}
+                      onRefresh = {() => this._onFetch(this.page = 1)}
+                      refreshing = {this.state.isRefreshing}
+                      onEndReached = {this.fetchMoreData}
+                      onEndReachedThreshold = {0.01}
+                      ListFooterComponent = {this._listFooterComponent}
+                      extraData = {this.state}
+                      onViewableItemsChanged = {this._onViewableItemsChanged}
+                // onScroll={this._onScroll}
+                      onContentSizeChange = {this.onContentSizeChange}
+                      {...otherProps}
+            />
         );
-    };
+    }
 
+    onContentSizeChange = () => {
+        this.isCanLoadMore = true // flatview内部组件布局完成以后会调用这个方法
+    }
     componentDidMount() {
         this._mounted = true;
         this._onFetch();
-    };
+    }
 
     // _onScroll = (event)=>{
     //     console.log(event.nativeEvent.contentOffset.y)
     // }
 
     _getPage = () => {return this.page;};
-    _setPage = (page)=> { this.page = page; };
-    _setRows = (rows)=> { this.rows = rows; };
-    _getRows = ()=> { return this.rows; };
-
+    _setPage = page => { this.page = page; };
+    _setRows = rows => { this.rows = rows; };
+    _getRows = () => { return this.rows; };
+    getDataSource = () => { return this.dataSource}
     _onFetch = async () => {
         try {
-            await this.props.onFetch(this._getPage(), this._postRefresh, {firstLoad: true});
+            await this.props.onFetch(this._getPage(), this._postRefresh, {firstLoad: this._getPage() === 1});
         }catch (e) {
-
+            console.log(e);
         }
     };
 
@@ -147,35 +164,35 @@ class index extends React.Component {
                 this.dataSource = [];
             }
             this.dataSource = this.dataSource.concat(rows);
-            console.warn(options);
             this.setState({
                 isRefreshing: false,
-                paginationStatus: (options.allLoaded === true ? 'allLoaded' : 'waiting'),
+                paginationStatus: options.allLoaded === true ? 'allLoaded' : 'waiting',
             });
         } else {
             this.setState({
                 isRefreshing: false,
-                paginationStatus: (options.allLoaded === true ? 'allLoaded' : 'waiting'),
+                paginationStatus: options.allLoaded === true ? 'allLoaded' : 'waiting',
             });
         }
     };
 
     fetchMoreData = () => {
-        if (this.state.paginationStatus !== 'allLoaded' ) {
-            this.page = this.page + 1;
-            this._onFetch()
+        if (this.isCanLoadMore) {
+            if (this.state.paginationStatus !== 'allLoaded') {
+                this.page = this.page + 1;
+                this._onFetch()
+                this.isCanLoadMore = false
+            }
         }
     };
 
-    _keyExtractor = (item, index) => index;
+    _keyExtractor = (item, index) => index.toString();
 
     _ItemSeparatorComponent = () => {
-        let view = (
+        let view =
             this.props.ItemSeparatorComponent ? this.props.ItemSeparatorComponent() :
-                (
-                    <View style={{height: StyleSheet.hairlineWidth, backgroundColor: '#ddd'}}/>
-                )
-        );
+                <View style = {{height: StyleSheet.hairlineWidth, backgroundColor: '#ddd'}}/>
+        ;
         return (
             <View>
                 {view}
@@ -183,20 +200,20 @@ class index extends React.Component {
         )
     };
 
-    emptyView =(refreshCallback)=> {
+    emptyView =refreshCallback => {
         if (this.props.emptyView) {
             return this.props.emptyView(refreshCallback);
         }
 
         return (
-            <View style={[this.defaultStyles.defaultView, this.props.customStyles.defaultView]}>
-                <Text style={[this.defaultStyles.defaultViewTitle, this.props.customStyles.defaultViewTitle]}>
+            <View style = {[this.defaultStyles.defaultView, this.props.customStyles.defaultView]}>
+                <Text style = {[this.defaultStyles.defaultViewTitle, this.props.customStyles.defaultViewTitle]}>
                     Sorry, there is no content to display
                 </Text>
 
                 <TouchableHighlight
-                    underlayColor='#c8c7cc'
-                    onPress={refreshCallback}
+                    underlayColor = '#c8c7cc'
+                    onPress = {refreshCallback}
                 >
                     <Text>
                         ↻
@@ -207,7 +224,7 @@ class index extends React.Component {
     };
 
     //刷新
-    _onRefresh = (options = {}) => {
+    _onRefresh = (options = {firstLoad: true}) => {
         if (this._mounted) {
             this.setState({
                 isRefreshing: true,
@@ -227,24 +244,24 @@ class index extends React.Component {
             return null;
         }
         return (
-            <View style={[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}>
+            <View style = {[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}>
                 <ActivityIndicator />
             </View>
         );
-    };
+    }
     paginationAllLoadedView() {
         if (this.props.paginationAllLoadedView) {
             return this.props.paginationAllLoadedView();
         }
 
         return (
-            <View style={[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}>
-                <Text style={[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
-                    ~
+            <View style = {[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}>
+                <Text style = {[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
+                    我是有底线的
                 </Text>
             </View>
         );
-    };
+    }
     paginationWaitingView(paginateCallback) {
         if (this.props.paginationWaitingView) {
             return this.props.paginationWaitingView(paginateCallback);
@@ -252,18 +269,19 @@ class index extends React.Component {
 
         return (
             <TouchableHighlight
-                underlayColor='#c8c7cc'
-                onPress={paginateCallback}
-                style={[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}
+                underlayColor = '#c8c7cc'
+                onPress = {paginateCallback}
+                style = {[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}
             >
-                <Text style={[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
-                    Load More
-                </Text>
+                <ActivityIndicator />
+                {/*<Text style = {[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>*/}
+                {/*Load More*/}
+                {/*</Text>*/}
             </TouchableHighlight>
         );
-    };
-    _listFooterComponent =()=> {
-        if ((this.state.paginationStatus === 'fetching' && this.props.pagination === true) || (this.state.paginationStatus === 'firstLoad')) {
+    }
+    _listFooterComponent =() => {
+        if (this.state.paginationStatus === 'fetching' && this.props.pagination === true || this.state.paginationStatus === 'firstLoad') {
             return this.paginationFetchingView(this.state.paginationStatus === 'firstLoad' && this.props.firstLoader === false);
         } else if (this.state.paginationStatus === 'waiting' && this.props.pagination === true && (this.props.withSections === true || this._getRows().length > 0)) {
             return this.paginationWaitingView(this._onPaginate);
@@ -274,17 +292,40 @@ class index extends React.Component {
         } else {
             return null;
         }
-
-
         // return (this.state.isLoadMore &&
         //     <ActivityIndicator/>
         // )
+    }
+
+    _onPaginate = () => {
+        if(this.state.paginationStatus === 'allLoaded'){
+            return null
+        }else {
+            if (this.state.paginationStatus !== 'fetching'){
+                this.setState({
+                    paginationStatus: 'fetching',
+                });
+
+                this._setPage(this._getPage() + 1);
+                this.props.onFetch(this._getPage(), this._postPaginate, {});
+            }
+        }
+    }
+
+    _postPaginate = (rows = [], options = {}) => {
+        let mergedRows = null;
+        if (this.props.withSections === true) {
+            mergedRows = MergeRecursive(this._getRows(), rows);
+        } else {
+            mergedRows = this._getRows().concat(rows);
+        }
+        this._updateRows(mergedRows, {firstLoad: this._getPage() === 1});
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
     },
 });
 
