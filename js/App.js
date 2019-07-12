@@ -9,7 +9,7 @@
 import React, {PropTypes} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image, Platform, BackHandler, ToastAndroid} from 'react-native';
 import {StackNavigator, TabNavigator, TabBarBottom, DrawerNavigator, addNavigationHelpers} from 'react-navigation'
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
 
 import {connect} from 'react-redux';
 import Home from './Home'
@@ -145,7 +145,7 @@ class App extends React.Component {
                 mode: 'card',
                 //控制安卓切换页面动作,跟IOS保持一致
                 transitionConfig: () => ({
-                    screenInterpolator: CardStackStyleInterpolator.forHorizontal,
+                    screenInterpolator: StackViewStyleInterpolator.forHorizontal,
                 }),
                 //导航切换事件
                 //onNavigationStateChange: (event)=>{

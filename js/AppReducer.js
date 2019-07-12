@@ -8,7 +8,7 @@
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import {StackNavigator,TabNavigator,TabBarBottom, DrawerNavigator, addNavigationHelpers}from 'react-navigation'
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
 import Home from './Home'
 import Mine from './Mine'
 import Components from './Component'
@@ -85,6 +85,15 @@ let routes = {Tab:{
     })
 },...route};
 
+// react-navigationV2版本缺陷
+Tab.navigationOptions = ({ navigation }) => {
+    const component = Tab.router.getComponentForState(navigation.state);
+    if (typeof component.navigationOptions === 'function') {
+        return component.navigationOptions({ navigation });
+    }
+    return component.navigationOptions;
+};
+
 const Navigator = StackNavigator(
     routes,
     {
@@ -107,7 +116,7 @@ const Navigator = StackNavigator(
             ),
             //文字样式
             //Android中headerTitleStyle默认为alignSelf:'flex-start'
-            headerTitleStyle:{alignSelf:'center'},
+            headerTitleStyle:{ alignSelf:'center', flex: 1 },
             headerTintColor: '#fff',
             //Android需要加上一個headerRight讓title居中
             //headerRight: <View style={{ width: 24 }}/>
@@ -118,7 +127,7 @@ const Navigator = StackNavigator(
         mode:'card',
         //控制安卓切换页面动作,跟IOS保持一致
         transitionConfig:()=>({
-            screenInterpolator: CardStackStyleInterpolator.forHorizontal,
+            screenInterpolator: StackViewStyleInterpolator.forHorizontal,
         })
         //导航切换事件
         //onNavigationStateChange: (event)=>{
