@@ -20,7 +20,7 @@ import AppSetting from './until/AppSetting'
 import dismissKeyboard from 'dismissKeyboard'
 import {iOS} from "./Common/util/Constant";
 import RNAndroidAutoUpdate from "react-native-android-auto-update";
-
+import User from './network/User'
 
 class Home extends React.Component {
     constructor(props, context) {
@@ -82,13 +82,19 @@ class Home extends React.Component {
     _onClick = () => {
         this.props.navigation.navigate('RNKeyboard');
     }
-    onRightButtonPress = () => {
+    onRightButtonPress =  () => {
         console.log(this.props.navigation);
         console.log('page1  点击了右键');
+        // try {
+        //     User.Url_name({});
+        // }catch (e) {
+        //
+        // }
+
     }
 
     componentWillMount() {
-        console.log(this.props.navigation)
+        console.log(this.props.navigation);
         //为右键添加事件
         this.props.navigation.setParams({
             onRightButtonPress: this.onRightButtonPress,
@@ -164,15 +170,15 @@ class Home extends React.Component {
     };
 
     _onDownLoadApk = () => {
-        try {
-            if (iOS) {
-                return;
-            }
-            console.warn('download');
-            RNAndroidAutoUpdate.goToDownloadApk('http://download.fjwing.cn/userdown/downUrl/apprelease');
-        } catch (e) {
-            console.warn(e);
-        }
+        // try {
+        //     if (iOS) {
+        //         return;
+        //     }
+        //     console.warn('download');
+        //     RNAndroidAutoUpdate.goToDownloadApk('http://download.fjwing.cn/userdown/downUrl/apprelease');
+        // } catch (e) {
+        //     console.warn(e);
+        // }
     }
 }
 
